@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        class="d-flex justify-content-center align-items-center"
+        style="height: 100vh"
+      >
+        <div class="card px-5 pt-5 pb-4 shadow-effect1">
+          <form>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control shadow-effect2"
+                id="email"
+                placeholder="Enter you email"
+              />
+            </div>
+
+            <div class="mb-2">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control shadow-effect2"
+                id="password"
+                placeholder="Enter you password"
+              />
+            </div>
+
+            <p
+              class="d-block mb-5 text-primary text-end pointerAuthSelection"
+              (click)="handleAuthMode()"
+            >
+              {{ isLoginMode ? "Sign Up" : "Login" }} instead?
+            </p>
+
+            <div class="text-center">
+              <button class="btn btn-primary w-25">
+                {{ isLoginMode ? "Login" : "Sign Up" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+.home-page {
+  /* background-color: #F5F5F5; */
+  background-color: #4b56d2;
+  display: flex;
+  min-height: 100vh;
+}
+
+.left-bar {
+  width: 250px;
+  min-width: 210px;
+  background-color: #ffffff;
+}
+
+.heading-text {
+  color: #3E54AC;
+}
+
+.active{
+    background-color: #D8D9DA;
+    border-radius: 4px;
+}
+
+.right-bar {
+  width: 100%;
+  min-width: 600px;
+  background-color: #ffffff;
+  color: #3E54AC;
+}
+
+.list-group-item-action {
+  cursor: pointer;
+}
+
+.list-group.list-group-flush a{
+    color: #3E54AC;
+}

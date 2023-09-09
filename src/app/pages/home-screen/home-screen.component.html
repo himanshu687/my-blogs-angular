@@ -1,0 +1,55 @@
+<div class="home-page p-2">
+  <div class="left-bar me-2 rounded p-3">
+    <!-- heading -->
+    <div class="text-center">
+      <h2 class="heading-text">
+        <i class="fa-solid fa-blog"></i>
+        Blogs Angular
+      </h2>
+    </div>
+
+    <hr />
+
+    <!-- list items -->
+    <div>
+      <ul class="list-group list-group-flush">
+        <li
+          routerLinkActive="active"
+          class="list-group-item list-group-item-action"
+        >
+          <a routerLink="/">
+            <i class="fa-solid fa-house fa-lg pe-2"></i> Home
+          </a>
+        </li>
+        <li
+          routerLinkActive="active"
+          class="list-group-item list-group-item-action"
+        >
+          <a routerLink="/blogs">
+            <i class="fa-brands fa-blogger-b fa-lg pe-2"></i> My Blogs
+          </a>
+        </li>
+        <li
+          routerLinkActive="active"
+          class="list-group-item list-group-item-action"
+        >
+          <a routerLink="/profile">
+            <i class="fa-solid fa-user fa-lg pe-2"></i> Profile
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="right-bar mx-2 rounded p-3">
+    <div class="text-center">
+      <h2><i class="fa-solid fa-house pe-1"></i> Home</h2>
+    </div>
+
+    <hr />
+
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
