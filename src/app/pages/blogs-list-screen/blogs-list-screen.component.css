@@ -1,0 +1,49 @@
+.card-container {
+  width: 80%;
+  margin: auto;
+}
+
+/* #279EFF */
+/* #337CCF */
+
+.card {
+  border: none;
+  position: relative;
+}
+
+.card:nth-child(n) {
+  background-color: #a1c2f1;
+}
+
+.card:nth-child(2n) {
+  background-color: #5a96e3;
+}
+
+.card-body a{
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.edit-icon {
+  color: #ffffff;
+  background-color: #4b56d2;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  cursor: pointer;
+  transition: transform 0.1s ease-in-out;
+}
+
+.edit-icon-inactive{
+  background-color: #bb2525 !important;
+}
+
+.edit-icon:hover {
+  transform: scale(1.2);
+}

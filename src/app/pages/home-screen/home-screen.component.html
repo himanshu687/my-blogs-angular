@@ -1,52 +1,85 @@
 <div class="home-page p-2">
-  <div class="left-bar me-2 rounded p-3">
-    <!-- heading -->
-    <div class="text-center">
-      <h2 class="heading-text">
-        <i class="fa-solid fa-blog"></i>
-        Blogs Angular
-      </h2>
+  <div
+    class="left-bar me-2 rounded p-3 d-flex flex-column justify-content-between"
+  >
+    <div>
+      <!-- heading -->
+      <div class="text-center">
+        <h2 class="heading-text">
+          <i class="fa-solid fa-blog"></i>
+          Blogs Angular
+        </h2>
+      </div>
+
+      <hr />
+
+      <!-- list items -->
+      <div>
+        <ul class="list-group list-group-flush">
+          <li
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="list-group-item list-group-item-action"
+          >
+            <a routerLink="/">
+              <i class="fa-solid fa-house fa-lg pe-2"></i> Home
+            </a>
+          </li>
+          <li
+            routerLinkActive="active"
+            class="list-group-item list-group-item-action"
+          >
+            <a routerLink="/blogs">
+              <i class="fa-brands fa-blogger-b fa-lg pe-2"></i> My Blogs
+            </a>
+          </li>
+          <li
+            routerLinkActive="active"
+            class="list-group-item list-group-item-action"
+          >
+            <a routerLink="/profile">
+              <i class="fa-solid fa-user fa-lg pe-2"></i> Profile
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <hr />
-
-    <!-- list items -->
-    <div>
-      <ul class="list-group list-group-flush">
-        <li
-          routerLinkActive="active"
-          class="list-group-item list-group-item-action"
-        >
-          <a routerLink="/">
-            <i class="fa-solid fa-house fa-lg pe-2"></i> Home
-          </a>
-        </li>
-        <li
-          routerLinkActive="active"
-          class="list-group-item list-group-item-action"
-        >
-          <a routerLink="/blogs">
-            <i class="fa-brands fa-blogger-b fa-lg pe-2"></i> My Blogs
-          </a>
-        </li>
-        <li
-          routerLinkActive="active"
-          class="list-group-item list-group-item-action"
-        >
-          <a routerLink="/profile">
-            <i class="fa-solid fa-user fa-lg pe-2"></i> Profile
-          </a>
-        </li>
-      </ul>
+    <!-- auth button -->
+    <div class="text-center">
+      <button
+        type="button"
+        (click)="handleAuthAction()"
+        class="btn btn-sm btn-outline-secondary w-50 auth-btn"
+      >
+        {{ isLoggedIn ? "Logout" : "Login" }}
+      </button>
     </div>
   </div>
 
   <div class="right-bar mx-2 rounded p-3">
-    <div class="text-center">
-      <h2><i class="fa-solid fa-house pe-1"></i> Home</h2>
+    <div class="text-center position-relative">
+      <h2 class="" *ngIf="innerHtmlContent === '/' || innerHtmlContent === ''">
+        All Blogs
+      </h2>
+      <h2 class="" *ngIf="innerHtmlContent === '/blogs'">My Blogs</h2>
+      <h2 class="" *ngIf="innerHtmlContent === '/profile'">Profile</h2>
+      <h2 class="" *ngIf="innerHtmlContent === '/add-blog'">Add Blog</h2>
+
+      <div
+        *ngIf="innerHtmlContent === '/blogs'"
+        class="position-absolute top-0 end-0"
+      >
+        <button
+          class="btn btn-outline-primary btn-sm addBlogBtn"
+          (click)="handleAddBlog()"
+        >
+          + Add Blog
+        </button>
+      </div>
     </div>
 
-    <hr />
+    <hr class="mb-5" />
 
     <div>
       <router-outlet></router-outlet>

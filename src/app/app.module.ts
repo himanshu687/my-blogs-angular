@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,11 +12,32 @@ import { LoginScreenComponent } from './pages/login-screen/login-screen.componen
 import { HomeScreenComponent } from './pages/home-screen/home-screen.component';
 import { BlogsListScreenComponent } from './pages/blogs-list-screen/blogs-list-screen.component';
 import { ProfileScreenComponent } from './pages/profile-screen/profile-screen.component';
+import { BlogFormScreenComponent } from './pages/blog-form-screen/blog-form-screen.component';
+import { AuthService } from './pages/login-screen/auth.service';
+import { AuthGuard } from './pages/login-screen/auth.guard';
+import { environment } from '../environments/environment';
+import { BlogsService } from './pages/blogs-list-screen/blogs.service';
 
 @NgModule({
-  declarations: [AppComponent, LoginScreenComponent, HomeScreenComponent, BlogsListScreenComponent, ProfileScreenComponent],
-  imports: [BrowserModule, AppRoutingModule],
-  providers: [],
+  declarations: [
+    AppComponent,
+    LoginScreenComponent,
+    HomeScreenComponent,
+    BlogsListScreenComponent,
+    ProfileScreenComponent,
+    BlogFormScreenComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+  ],
+  providers: [AuthService, AuthGuard, BlogsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

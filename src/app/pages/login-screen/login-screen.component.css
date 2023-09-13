@@ -6,3 +6,7 @@
 .pointerAuthSelection {
   cursor: pointer;
 }
+
+input.ng-touched.ng-invalid {
+  border: 2px solid red;
+}

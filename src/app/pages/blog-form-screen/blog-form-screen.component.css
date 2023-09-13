@@ -1,0 +1,13 @@
+/* .form-check-input {
+  background-color: red;
+  border-color: red;
+} */
+
+.form-check-input:checked {
+  background-color: green;
+  border-color: green;
+}
+
+textarea.ng-touched.ng-invalid {
+  border: 2px solid red;
+}
