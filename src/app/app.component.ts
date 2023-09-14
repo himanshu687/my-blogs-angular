@@ -23,6 +23,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authService.autoLogin();
+    console.log('github actions deployed');
   }
 
   ngOnDestroy(): void {
