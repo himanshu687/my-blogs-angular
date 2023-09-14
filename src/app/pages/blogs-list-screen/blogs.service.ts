@@ -14,10 +14,11 @@ import {
   where,
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { Subscription, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 
 import { AuthService } from '../login-screen/auth.service';
 import { Blogs } from './blogs.model';
+import { LoaderService } from 'src/app/components/progress-bar-loader/loader.service';
 
 @Injectable()
 export class BlogsService implements OnInit, OnDestroy {
@@ -26,11 +27,13 @@ export class BlogsService implements OnInit, OnDestroy {
 
   private authSubscription: Subscription;
   private loggedInUserId: string = '';
+  isLoading: Observable<boolean>;
 
   constructor(
     private authService: AuthService,
     private firestore: Firestore,
-    private router: Router
+    private router: Router,
+    private loaderService: LoaderService
   ) {
     this.authSubscription = this.authService.user.subscribe((user) => {
       this.loggedInUserId = user?.id;
@@ -53,16 +56,19 @@ export class BlogsService implements OnInit, OnDestroy {
       timestamp: new Date(),
       blogContent: blogText,
     };
+    this.loaderService.setLoading(true);
 
     const blogsRef = collection(this.firestore, 'blogs');
 
     addDoc(blogsRef, blogFile)
       .then((docRef) => {
         console.log('Blog saved: ', docRef);
+        this.loaderService.setLoading(false);
         this.router.navigate(['/blogs', this.loggedInUserId]);
       })
       .catch((error) => {
         console.log('error at saving: ', error);
+        this.loaderService.setLoading(false);
       });
   }
 
@@ -121,24 +127,35 @@ export class BlogsService implements OnInit, OnDestroy {
       timestamp: new Date(),
       blogContent: blogContent,
     };
+    this.loaderService.setLoading(true);
 
     const blogsRef = collection(this.firestore, 'blogs');
 
-    updateDoc(doc(blogsRef, documentId), updatedBlogFile as object).then(
-      (response) => {
+    updateDoc(doc(blogsRef, documentId), updatedBlogFile as object)
+      .then((response) => {
         console.log('updated response: ', response);
+        this.loaderService.setLoading(false);
         this.router.navigate(['/blogs', this.loggedInUserId]);
-      }
-    );
+      })
+      .catch((error) => {
+        console.log('error at updating: ', error);
+        this.loaderService.setLoading(false);
+      });
   }
 
   deleteBlog(documentId: string) {
+    this.loaderService.setLoading(true);
     const blogsRef = collection(this.firestore, 'blogs');
 
-    deleteDoc(doc(blogsRef, documentId)).then((response) => {
-      console.log('deleted response: ', response);
-      this.router.navigate(['/blogs', this.loggedInUserId]);
-    });
+    deleteDoc(doc(blogsRef, documentId))
+      .then((response) => {
+        console.log('deleted response: ', response);
+        this.router.navigate(['/blogs', this.loggedInUserId]);
+      })
+      .catch((error) => {
+        console.log('error at deleting: ', error);
+        this.loaderService.setLoading(false);
+      });
   }
 
   // format the blogs while getting

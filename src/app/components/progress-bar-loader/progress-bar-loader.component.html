@@ -1,0 +1,8 @@
+<div class="main-container">
+  <div
+    class="loading-position"
+    [ngClass]="(isLoading | async) ? 'display-block' : 'display-none'"
+  >
+    <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+  </div>
+</div>

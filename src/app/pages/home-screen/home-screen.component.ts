@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 import { AuthService } from '../login-screen/auth.service';
+import { LoaderService } from 'src/app/components/progress-bar-loader/loader.service';
 
 @Component({
   selector: 'app-home-screen',
@@ -10,37 +11,43 @@ import { AuthService } from '../login-screen/auth.service';
   styleUrls: ['./home-screen.component.css'],
 })
 export class HomeScreenComponent implements OnInit, OnDestroy {
-  // innerHtmlContent: string = '';
-  // routerEvents: Subscription;
   private authSubscription: Subscription;
   isLoggedIn: boolean = false;
   loggedInUserId: string = '';
+  isLoading: Observable<boolean>;
 
-  constructor(private router: Router, private authService: AuthService) {
-    // this.routerEvents = this.router.events.subscribe((event: any) => {
-    //   if (event instanceof NavigationEnd) {
-    //     this.innerHtmlContent = event.url;
-    //   }
-    // });
-  }
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private loaderService: LoaderService
+  ) {}
 
   ngOnInit(): void {
+    this.isLoading = this.loaderService.isLoading;
+
+    this.loaderService.setLoading(true);
+
     this.authSubscription = this.authService.user.subscribe((user) => {
       this.isLoggedIn = !!user;
       this.loggedInUserId = user?.id;
+
+      this.loaderService.setLoading(false);
     });
   }
 
   ngOnDestroy(): void {
-    // this.routerEvents.unsubscribe();
     this.authSubscription.unsubscribe();
   }
 
   handleAuthAction() {
+    this.loaderService.setLoading(true);
+
     if (this.isLoggedIn) {
       this.authService.logout();
+      this.loaderService.setLoading(false);
     } else {
       this.router.navigate(['/login']);
+      this.loaderService.setLoading(false);
     }
   }
 }

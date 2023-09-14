@@ -20,6 +20,8 @@ import { AuthGuard } from './pages/login-screen/auth.guard';
 import { environment } from '../environments/environment';
 import { BlogsService } from './pages/blogs-list-screen/blogs.service';
 import { MyBlogsListScreenComponent } from './pages/my-blogs-list-screen/my-blogs-list-screen.component';
+import { ProgressBarLoaderComponent } from './components/progress-bar-loader/progress-bar-loader.component';
+import { LoaderService } from './components/progress-bar-loader/loader.service';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { MyBlogsListScreenComponent } from './pages/my-blogs-list-screen/my-blog
     ProfileScreenComponent,
     BlogFormScreenComponent,
     MyBlogsListScreenComponent,
+    ProgressBarLoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,7 @@ import { MyBlogsListScreenComponent } from './pages/my-blogs-list-screen/my-blog
     provideFirestore(() => getFirestore()),
     MatProgressBarModule,
   ],
-  providers: [AuthService, AuthGuard, BlogsService],
+  providers: [AuthService, AuthGuard, BlogsService, LoaderService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -43,7 +43,9 @@
               [value]="blogContentForm.get('contentStatus').value"
               [checked]="blogContentForm.get('contentStatus').value"
             />
-            <label class="form-check-label" for="blog-status">
+            <label class="form-check-label" for="blog-status"
+            [ngClass]=""
+            >
               {{
                 blogContentForm.get("contentStatus").value
                   ? "Active"

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
-import { AuthResponseData } from './auth-response.model';
 import { Observable } from 'rxjs';
+import { LoaderService } from 'src/app/components/progress-bar-loader/loader.service';
+import { AuthResponseData } from './auth-response.model';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-login-screen',
@@ -14,8 +15,13 @@ export class LoginScreenComponent implements OnInit {
   isLoginMode: boolean = true;
   authForm: FormGroup;
   errorMsg: string = null;
+  isLoading: Observable<boolean>;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private loaderService: LoaderService
+  ) {}
 
   ngOnInit(): void {
     this.authForm = new FormGroup({
@@ -25,6 +31,8 @@ export class LoginScreenComponent implements OnInit {
         Validators.minLength(6),
       ]),
     });
+
+    this.isLoading = this.loaderService.isLoading
   }
 
   handleAuthMode() {
@@ -40,9 +48,8 @@ export class LoginScreenComponent implements OnInit {
     const email = this.authForm.value.email;
     const password = this.authForm.value.password;
 
-    
-
     let authObservable: Observable<AuthResponseData>;
+    this.loaderService.setLoading(true);
 
     if (this.isLoginMode) {
       authObservable = this.authService.login(email, password);
@@ -54,11 +61,13 @@ export class LoginScreenComponent implements OnInit {
       (response) => {
         console.log('response: ', response);
         this.authForm.reset();
+        this.loaderService.setLoading(false);
         this.router.navigate(['/']);
       },
       (error) => {
         console.log('error: ', error);
         this.errorMsg = error;
+        this.loaderService.setLoading(false);
       }
     );
   }

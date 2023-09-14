@@ -9,7 +9,7 @@
     <div>
       <!-- blog list item component -->
 
-      <h3 class="text-center" *ngIf="blogsData.length === 0">
+      <h3 class="text-center" *ngIf="blogsData.length === 0 && !isLoading">
         No blogs to show
       </h3>
 

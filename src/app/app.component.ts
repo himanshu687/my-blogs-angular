@@ -12,7 +12,6 @@ import { AuthService } from './pages/login-screen/auth.service';
 export class AppComponent implements OnInit, OnDestroy {
   innerHtmlContent: string = '';
   routerEvents: Subscription;
-  loading: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {
     this.routerEvents = this.router.events.subscribe((event: any) => {
@@ -28,9 +27,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.routerEvents.unsubscribe();
-  }
-
-  setLoading(value: boolean) {
-    this.loading = value;
   }
 }
