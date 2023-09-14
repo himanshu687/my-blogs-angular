@@ -5,17 +5,19 @@ import { BehaviorSubject, Subject, catchError, tap, throwError } from 'rxjs';
 
 import { User } from './user.model';
 import { AuthResponseData } from './auth-response.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AuthService {
-  user = new  BehaviorSubject<User>(null);
+  user = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient, private router: Router) {}
 
   signUp(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB6B6cMlYMMbWhJus1da77GQATlEMor5Sc',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' +
+          environment.firebase.apiKey,
         {
           email,
           password,
@@ -38,7 +40,8 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB6B6cMlYMMbWhJus1da77GQATlEMor5Sc',
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
+          environment.firebase.apiKey,
         {
           email,
           password,
@@ -81,7 +84,7 @@ export class AuthService {
 
     if (!userData) {
       console.log('returning autologin');
-      
+
       return;
     }
 
@@ -94,7 +97,7 @@ export class AuthService {
 
     if (loadedUser.token) {
       console.log('autologin done');
-      
+
       this.user.next(loadedUser);
     }
   }

@@ -12,6 +12,10 @@ textarea.ng-touched.ng-invalid {
   border: 2px solid red;
 }
 
-.btn-container button{
+.btn-container button {
   width: 120px;
+}
+
+.form-check-label span {
+  font-weight: 500;
 }

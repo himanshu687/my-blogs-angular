@@ -25,13 +25,23 @@
           </div>
 
           <div *ngIf="inEditMode">
-            <button class="btn btn-outline-danger" (click)="handleDeleteBlog()" type="button">
+            <button
+              class="btn btn-outline-danger"
+              (click)="handleDeleteBlog()"
+              type="button"
+            >
               Delete Blog
             </button>
           </div>
 
           <div>
-            <button class="btn btn-outline-info" (click)="handleGoBack()" type="button">Back</button>
+            <button
+              class="btn btn-outline-info"
+              (click)="handleGoBack()"
+              type="button"
+            >
+              Back
+            </button>
           </div>
 
           <div class="form-check form-switch">
@@ -43,14 +53,19 @@
               [value]="blogContentForm.get('contentStatus').value"
               [checked]="blogContentForm.get('contentStatus').value"
             />
-            <label class="form-check-label" for="blog-status"
-            [ngClass]=""
-            >
-              {{
-                blogContentForm.get("contentStatus").value
-                  ? "Active"
-                  : "Inactive"
-              }}
+            <label class="form-check-label" for="blog-status">
+              <span
+                *ngIf="blogContentForm.get('contentStatus').value"
+                class="text-success"
+              >
+                Active
+              </span>
+              <span
+                *ngIf="!blogContentForm.get('contentStatus').value"
+                class="text-danger"
+              >
+                Inactive
+              </span>
             </label>
           </div>
         </div>

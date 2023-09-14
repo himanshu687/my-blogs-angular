@@ -7,7 +7,7 @@ export class LoaderService {
   isLoading = new BehaviorSubject<boolean>(false);
 
   setLoading(value: boolean) {
-    console.log('setting loader value: ', value);
+    // console.log('setting loader value: ', value);
 
     this.isLoading.next(value);
   }

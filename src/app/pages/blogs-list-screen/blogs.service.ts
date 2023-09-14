@@ -41,7 +41,6 @@ export class BlogsService implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // this.blogsRef = collection(this.firestore, 'blogs');
   }
 
   ngOnDestroy(): void {

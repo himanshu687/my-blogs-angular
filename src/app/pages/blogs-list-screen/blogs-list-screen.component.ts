@@ -25,7 +25,7 @@ export class BlogsListScreenComponent {
     this.loaderService.setLoading(true);
 
     this.blogsService.getAllBlogs().subscribe((data: Blogs[]) => {
-      console.log('getting all blogs: ', data);
+      // console.log('getting all blogs: ', data);
       this.blogsData = data;
       this.loaderService.setLoading(false);
     });

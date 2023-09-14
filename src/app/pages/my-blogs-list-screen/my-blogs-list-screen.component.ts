@@ -28,7 +28,7 @@ export class MyBlogsListScreenComponent implements OnInit {
     this.loaderService.setLoading(true);
 
     this.blogsService.getLoggedInUserBlogs().subscribe((data: Blogs[]) => {
-      console.log('getting loggedIn user blogs: ', data);
+      // console.log('getting loggedIn user blogs: ', data);
       this.myBlogsData = data;
       this.loaderService.setLoading(false);
     });
