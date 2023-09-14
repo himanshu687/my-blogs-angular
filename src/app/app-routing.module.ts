@@ -6,23 +6,29 @@ import { BlogsListScreenComponent } from './pages/blogs-list-screen/blogs-list-s
 import { ProfileScreenComponent } from './pages/profile-screen/profile-screen.component';
 import { BlogFormScreenComponent } from './pages/blog-form-screen/blog-form-screen.component';
 import { AuthGuard } from './pages/login-screen/auth.guard';
+import { MyBlogsListScreenComponent } from './pages/my-blogs-list-screen/my-blogs-list-screen.component';
 
 const routes: Routes = [
   { path: '', component: BlogsListScreenComponent },
   { path: 'login', component: LoginScreenComponent },
   {
-    path: 'blogs',
-    component: BlogsListScreenComponent,
+    path: 'blogs/:userId',
+    component: MyBlogsListScreenComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'blogs/:userId/new-blog',
+    component: BlogFormScreenComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'blogs/:userId/edit-blog/:blogId',
+    component: BlogFormScreenComponent,
     canActivate: [AuthGuard],
   },
   {
     path: 'profile',
     component: ProfileScreenComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'add-blog',
-    component: BlogFormScreenComponent,
     canActivate: [AuthGuard],
   },
 ];

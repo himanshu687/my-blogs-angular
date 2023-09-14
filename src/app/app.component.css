@@ -1,0 +1,20 @@
+.display-block {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 100;
+}
+
+.display-none {
+  display: none;
+}
+
+.main-container {
+}
+
+.loading-position {
+  position: fixed;
+  /* z-index: 100; */
+  width: 100%;
+}

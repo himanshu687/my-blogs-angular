@@ -3,9 +3,14 @@ import {
   Firestore,
   addDoc,
   collection,
+  collectionData,
   collectionSnapshots,
+  deleteDoc,
+  doc,
+  getDoc,
   orderBy,
   query,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -54,7 +59,7 @@ export class BlogsService implements OnInit, OnDestroy {
     addDoc(blogsRef, blogFile)
       .then((docRef) => {
         console.log('Blog saved: ', docRef);
-        this.router.navigate(['/blogs']);
+        this.router.navigate(['/blogs', this.loggedInUserId]);
       })
       .catch((error) => {
         console.log('error at saving: ', error);
@@ -85,6 +90,55 @@ export class BlogsService implements OnInit, OnDestroy {
     );
 
     return collectionSnapshots(q).pipe(this.formatGetBlogs());
+  }
+
+  getBlogById(blogId: string) {
+    console.log('inside    service');
+    const blogsRef = collection(this.firestore, 'blogs');
+
+    return getDoc(doc(blogsRef, blogId))
+      .then((response: any) => {
+        const data = response._document.data.value.mapValue.fields;
+
+        const blog: Blogs = {
+          documentId: response.id,
+          userId: data.userId.stringValue,
+          status: data.status.booleanValue,
+          timestamp: data.timestamp.timestampValue,
+          blogContent: data.blogContent.stringValue,
+        };
+        return blog;
+      })
+      .catch((error) => {
+        return error;
+      });
+  }
+
+  updateBlog(documentId: string, blogStatus: boolean, blogContent: string) {
+    const updatedBlogFile: Blogs = {
+      userId: this.loggedInUserId,
+      status: blogStatus,
+      timestamp: new Date(),
+      blogContent: blogContent,
+    };
+
+    const blogsRef = collection(this.firestore, 'blogs');
+
+    updateDoc(doc(blogsRef, documentId), updatedBlogFile as object).then(
+      (response) => {
+        console.log('updated response: ', response);
+        this.router.navigate(['/blogs', this.loggedInUserId]);
+      }
+    );
+  }
+
+  deleteBlog(documentId: string) {
+    const blogsRef = collection(this.firestore, 'blogs');
+
+    deleteDoc(doc(blogsRef, documentId)).then((response) => {
+      console.log('deleted response: ', response);
+      this.router.navigate(['/blogs', this.loggedInUserId]);
+    });
   }
 
   // format the blogs while getting

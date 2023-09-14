@@ -1,45 +1,73 @@
 <div class="row">
   <div class="col-md-12">
-    <form [formGroup]="blogContentForm" (ngSubmit)="onSubmit()">
-      <div class="d-flex justify-content-around align-items-center">
-        <div class="mb-3">
-          <button
-            [disabled]="!blogContentForm.valid"
-            type="submit"
-            class="btn btn-outline-success"
-          >
-            Save Button
-          </button>
+    <div class="text-center">
+      <h2>Add Blog</h2>
+    </div>
+
+    <hr class="mb-5" />
+
+    <div>
+      <form [formGroup]="blogContentForm" (ngSubmit)="onSubmit()">
+        <div
+          class="d-flex justify-content-evenly align-items-center mb-4 btn-container"
+        >
+          <div class="">
+            <button
+              [disabled]="!blogContentForm.valid"
+              type="submit"
+              class="btn"
+              [ngClass]="
+                inEditMode ? 'btn-outline-warning' : 'btn-outline-success'
+              "
+            >
+              {{ inEditMode ? "Update Blog" : "Save Blog" }}
+            </button>
+          </div>
+
+          <div *ngIf="inEditMode">
+            <button class="btn btn-outline-danger" (click)="handleDeleteBlog()" type="button">
+              Delete Blog
+            </button>
+          </div>
+
+          <div>
+            <button class="btn btn-outline-info" (click)="handleGoBack()" type="button">Back</button>
+          </div>
+
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="blog-status"
+              formControlName="contentStatus"
+              [value]="blogContentForm.get('contentStatus').value"
+              [checked]="blogContentForm.get('contentStatus').value"
+            />
+            <label class="form-check-label" for="blog-status">
+              {{
+                blogContentForm.get("contentStatus").value
+                  ? "Active"
+                  : "Inactive"
+              }}
+            </label>
+          </div>
         </div>
 
-        <div class="form-check form-switch">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="blog-status"
-            formControlName="contentStatus"
-            [checked]="blogContentForm.get('contentStatus')"
-          />
-          <label class="form-check-label" for="blog-status">
-            Active/Inactive
-          </label>
+        <div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">
+              <h2 class="mb-0">Write you Content here:</h2>
+            </label>
+            <textarea
+              class="form-control shadow-effect2"
+              id="exampleFormControlTextarea1"
+              rows="15"
+              autofocus
+              formControlName="contentText"
+            ></textarea>
+          </div>
         </div>
-      </div>
-
-      <div>
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">
-            <h2 class="mb-0">Write you Content here:</h2>
-          </label>
-          <textarea
-            class="form-control shadow-effect2"
-            id="exampleFormControlTextarea1"
-            rows="15"
-            autofocus
-            formControlName="contentText"
-          ></textarea>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>

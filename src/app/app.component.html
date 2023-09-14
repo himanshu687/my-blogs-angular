@@ -1,3 +1,12 @@
-<app-login-screen *ngIf="innerHtmlContent ==='/login'"></app-login-screen>
+<div class="main-container">
+  <div
+    class="loading-position"
+    [ngClass]="loading ? 'display-block' : 'display-none'"
+  >
+    <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+  </div>
 
-<app-home-screen *ngIf="innerHtmlContent !=='/login'"></app-home-screen>
+  <app-login-screen *ngIf="innerHtmlContent === '/login'"></app-login-screen>
+
+  <app-home-screen *ngIf="innerHtmlContent !== '/login'"></app-home-screen>
+</div>

@@ -29,7 +29,7 @@
             routerLinkActive="active"
             class="list-group-item list-group-item-action"
           >
-            <a routerLink="/blogs">
+            <a [routerLink]="['/blogs', loggedInUserId]">
               <i class="fa-brands fa-blogger-b fa-lg pe-2"></i> My Blogs
             </a>
           </li>
@@ -58,18 +58,10 @@
   </div>
 
   <div class="right-bar mx-2 rounded p-3">
-    <div class="text-center position-relative">
-      <h2 class="" *ngIf="innerHtmlContent === '/' || innerHtmlContent === ''">
-        All Blogs
-      </h2>
-      <h2 class="" *ngIf="innerHtmlContent === '/blogs'">My Blogs</h2>
-      <h2 class="" *ngIf="innerHtmlContent === '/profile'">Profile</h2>
-      <h2 class="" *ngIf="innerHtmlContent === '/add-blog'">Add Blog</h2>
+    <!-- <div class="text-center position-relative">
+      <h2>All Blogs</h2>
 
-      <div
-        *ngIf="innerHtmlContent === '/blogs'"
-        class="position-absolute top-0 end-0"
-      >
+      <div class="position-absolute top-0 end-0">
         <button
           class="btn btn-outline-primary btn-sm addBlogBtn"
           (click)="handleAddBlog()"
@@ -79,7 +71,7 @@
       </div>
     </div>
 
-    <hr class="mb-5" />
+    <hr class="mb-5" />  -->
 
     <div>
       <router-outlet></router-outlet>

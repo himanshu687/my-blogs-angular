@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="text-center position-relative">
+            <h2>My Blogs</h2>
+      
+            <div class="position-absolute top-0 end-0">
+              <button
+                class="btn btn-outline-primary btn-sm addBlogBtn"
+                (click)="handleAddBlog()"
+              >
+                + Add Blog
+              </button>
+            </div>
+          </div>
+      
+          <hr class="mb-5" />
+  
+      <div>
+        <!-- blog list item component -->
+  
+        <h3 class="text-center" *ngIf="myBlogsData.length === 0">
+          No blogs to show
+        </h3>
+  
+        <div class="card-container">
+          <div class="card mb-4" *ngFor="let blog of myBlogsData">
+            <span
+              class="edit-icon"
+              (click)="handleBlogEdit(blog.documentId)"
+              [ngClass]="!blog.status && 'edit-icon-inactive'"
+            >
+              <i class="fa-regular fa-pen-to-square fa-lg"></i>
+            </span>
+  
+            <div class="card-body p-4">
+              <p>{{ blog.blogContent }}</p>
+            </div>
+          </div>
+  
+          <!--  -->
+        </div>
+      </div>
+    </div>
+  </div>
+  

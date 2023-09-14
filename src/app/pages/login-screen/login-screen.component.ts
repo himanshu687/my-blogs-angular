@@ -40,6 +40,8 @@ export class LoginScreenComponent implements OnInit {
     const email = this.authForm.value.email;
     const password = this.authForm.value.password;
 
+    
+
     let authObservable: Observable<AuthResponseData>;
 
     if (this.isLoginMode) {

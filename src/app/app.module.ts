@@ -6,6 +6,8 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginScreenComponent } from './pages/login-screen/login-screen.component';
@@ -17,6 +19,7 @@ import { AuthService } from './pages/login-screen/auth.service';
 import { AuthGuard } from './pages/login-screen/auth.guard';
 import { environment } from '../environments/environment';
 import { BlogsService } from './pages/blogs-list-screen/blogs.service';
+import { MyBlogsListScreenComponent } from './pages/my-blogs-list-screen/my-blogs-list-screen.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,7 @@ import { BlogsService } from './pages/blogs-list-screen/blogs.service';
     BlogsListScreenComponent,
     ProfileScreenComponent,
     BlogFormScreenComponent,
+    MyBlogsListScreenComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +40,7 @@ import { BlogsService } from './pages/blogs-list-screen/blogs.service';
     BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+    MatProgressBarModule,
   ],
   providers: [AuthService, AuthGuard, BlogsService],
   bootstrap: [AppComponent],
